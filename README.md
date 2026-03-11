@@ -91,4 +91,7 @@ Gemini Chef/
 | Variable | Description |
 |---|---|
 | `VITE_GEMINI_API_KEY` | Your Google Gemini API key |
+## Usage Demo
+
+[Chef Gemini Demo.webm](https://github.com/user-attachments/assets/038bad34-67b2-43a4-ac8f-9965260a4935)
 
