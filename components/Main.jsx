@@ -2,13 +2,20 @@ import React from "react"
 import IngredientsList from "./IngredientsList"
 import { getRecipeFromGemini } from "../ai.js"
 import GeminiRecipe from "./GeminiRecipe.jsx"
+import { useEffect, useRef } from "react"
 
 export default function Main() {
     const [ingredients, setIngredients] = React.useState([])
     const [recipeShown, setRecipeShown] = React.useState(false)
     const [loading, setLoading] = React.useState(false)
-
     const [recipe, setRecipe] = React.useState("")
+    const recipeRef = useRef(null)
+
+    useEffect(() => {
+        if (recipeShown && recipeRef.current) {
+            recipeRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+    }, [recipeShown])
     async function toggleRecipeShown() {
         try {
             if (!recipe) {
@@ -64,6 +71,7 @@ export default function Main() {
 
             {recipeShown && !loading && <GeminiRecipe
                 recipe={recipe}
+                ref={recipeRef}
             />}
         </main>
     )

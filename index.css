@@ -103,6 +103,18 @@ ul.ingredients-list > li {
     font-family: Inter, sans-serif;
     font-size: 0.875rem;
     cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.get-recipe-container button:hover:not(:disabled) {
+    transform: translateY(-3px) scale(1.03);
+    background-color: #c4633f;
+    box-shadow: 0 8px 20px rgba(209, 117, 87, 0.45);
+}
+
+.get-recipe-container button:active:not(:disabled) {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 6px rgba(209, 117, 87, 0.3);
 }
 
 .suggested-recipe-container {
@@ -110,6 +122,18 @@ ul.ingredients-list > li {
     line-height: 28px;
     font-size: 1.125rem;
     font-weight: 400;
+    animation: revealDown 1.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes revealDown {
+    from {
+        clip-path: inset(0 0 100% 0);
+        opacity: 0;
+    }
+    to {
+        clip-path: inset(0 0 0% 0);
+        opacity: 1;
+    }
 }
 
 .suggested-recipe-container ul li, .suggested-recipe-container ol li {
