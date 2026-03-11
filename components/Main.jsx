@@ -6,18 +6,22 @@ import GeminiRecipe from "./GeminiRecipe.jsx"
 export default function Main() {
     const [ingredients, setIngredients] = React.useState([])
     const [recipeShown, setRecipeShown] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
 
     const [recipe, setRecipe] = React.useState("")
     async function toggleRecipeShown() {
         try {
             if (!recipe) {
+                setLoading(true)
                 const recipeMarkdown = await getRecipeFromGemini(ingredients)
                 setRecipe(recipeMarkdown)
+                setLoading(false)
                 console.log(recipeMarkdown)
             }
             setRecipeShown(prevState => !prevState)
         }
         catch (err) {
+            setLoading(false)
             console.log(err.message)
         }
     }
@@ -43,10 +47,22 @@ export default function Main() {
                 <IngredientsList
                     ingredients={ingredients}
                     toggleRecipeShown={toggleRecipeShown}
+                    loading={loading}
                 />
             }
 
-            {recipeShown && <GeminiRecipe
+            {loading && (
+                <div className="loading-indicator">
+                    <div className="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <p>Chef Gemini is cooking up your recipe…</p>
+                </div>
+            )}
+
+            {recipeShown && !loading && <GeminiRecipe
                 recipe={recipe}
             />}
         </main>
